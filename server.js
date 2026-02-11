@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(requestLogger);
 app.use(express.json());
+//cookie parse middleware was missing.
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
