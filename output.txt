@@ -1,13 +1,15 @@
-curl -X POST http://localhost:3000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"samarkrishna231@gmail.com","password":"password123"}'
+command 1: curl -X POST http://localhost:3000/auth/login \
+           -H "Content-Type: application/json" \
+           -d '{"email":"samarkrishna231@gmail.com","password":"password123"}'
+response 1: {"message":"OTP sent","loginSessionId":"64tva","otp":146216}
 
-  curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp \
-  -H "Content-Type: application/json" \
-  -d '{"loginSessionId":"n9hb4r","otp":"162262"}'
+ command 2: curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp \
+            -H "Content-Type: application/json" \
+            -d '{"loginSessionId":"64tva","otp":"146216"}'
+response 2: {"message":"OTP verified","sessionId":"64tva"}
 
-  # Uses the cookie captured in Task 2
-curl -b cookies.txt -X POST http://localhost:3000/auth/token
+command 3: curl -b cookies.txt -X POST http://localhost:3000/auth/token
+response 3: {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbWFya3Jpc2huYTIzMUBnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiI2NHR2YSIsImlhdCI6MTc3MDgzNTgzNiwiZXhwIjoxNzcwODM2NzM2fQ.iLg3ZlRYyBDcAlA7FBujiLW5HscPlTjxv4K0d_7GQCE","expires_in":900}
 
-# Replace <jwt> with the token from Task 3
-curl -H "Authorization: Bearer <jwt>" http://localhost:3000/protected
+command 4: curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNhbWFya3Jpc2huYTIzMUBnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiI2NHR2YSIsImlhdCI6MTc3MDgzNTgzNiwiZXhwIjoxNzcwODM2NzM2fQ.iLg3ZlRYyBDcAlA7FBujiLW5HscPlTjxv4K0d_7GQCE" http://localhost:3000/protected
+response 4: {"message":"Access granted","user":{"email":"samarkrishna231@gmail.com","sessionId":"64tva","iat":1770835836,"exp":1770836736},"success_flag":"FLAG-c2FtYXJrcmlzaG5hMjMxQGdtYWlsLmNvbV9DT01QTEVURURfQVNTSUdOTUVOVA=="}
