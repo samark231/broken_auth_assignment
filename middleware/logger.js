@@ -7,8 +7,6 @@ const requestLogger = (req, res, next) => {
     console.log(`${req.method} ${req.url} -> ${res.statusCode} (${duration}ms)`);
   });
 
-  // THE BUG: Missing `next()`.
-  // The request hangs forever because control is never passed to the route.
 };
 
 module.exports = requestLogger;
