@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const requestLogger = require("./middleware/logger");
 const authMiddleware = require("./middleware/auth");
 const authRoutes = require("./routes/auth.routes.js");
-
+require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 

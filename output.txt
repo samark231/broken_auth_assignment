@@ -1,0 +1,13 @@
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"samarkrishna231@gmail.com","password":"password123"}'
+
+  curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp \
+  -H "Content-Type: application/json" \
+  -d '{"loginSessionId":"n9hb4r","otp":"162262"}'
+
+  # Uses the cookie captured in Task 2
+curl -b cookies.txt -X POST http://localhost:3000/auth/token
+
+# Replace <jwt> with the token from Task 3
+curl -H "Authorization: Bearer <jwt>" http://localhost:3000/protected

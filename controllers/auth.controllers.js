@@ -88,17 +88,18 @@ const handleVerifyOtp = (req, res) => {
   }
 };
 
-const handleToken=  (req, res) => {
+const handleToken =  (req, res) => {
   try {
-    const token = req.headers.authorization;
+    //it should read the session_token cookie instead of authorisation header.
+    const session_token = req.cookies.session_token;
 
-    if (!token) {
+    if (!session_token) {
       return res
         .status(401)
         .json({ error: "Unauthorized - valid session required" });
     }
 
-    const session = loginSessions[token.replace("Bearer ", "")];
+    const session = loginSessions[session_token];
 
     if (!session) {
       return res.status(401).json({ error: "Invalid session" });
@@ -110,7 +111,7 @@ const handleToken=  (req, res) => {
     const accessToken = jwt.sign(
       {
         email: session.email,
-        sessionId: token,
+        sessionId: session_token,
       },
       secret,
       {
