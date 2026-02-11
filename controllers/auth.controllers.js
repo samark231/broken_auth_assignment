@@ -34,6 +34,7 @@ const handleLogin = (req, res) => {
     return res.status(200).json({
       message: "OTP sent",
       loginSessionId,
+      otp
     });
   } catch (error) {
     return res.status(500).json({
